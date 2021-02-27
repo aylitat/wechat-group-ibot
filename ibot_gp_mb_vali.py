@@ -97,6 +97,7 @@ def process_group_members(group):
     fp = codecs.open(get_path_custom('group_member') + '/%s_member_list.txt' % group_id, 'w+', 'utf-8')
 
     for member in group:
+        # name from remark、group nickname, nickname by order
         nickname = member.name  # display_name
         wx_puid = member.puid
         fp.write(nickname + '\n')

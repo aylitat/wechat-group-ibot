@@ -89,15 +89,35 @@ kick_max = cf.getint('wechat', 'kick_max')
 bot_db = BotDatabase.instance(db_config)
 
 group_1 = init_group(group_name_1, group_id_1)
+group_3 = init_group(group_name_3, group_id_3)
+my_groups = [group_1, group_3]
+
+# not include region, gender, signature
+try:
+    # TODO this will change the member's puid ???
+    group_1.update_group(members_details=True)
+    group_3.update_group(members_details=True)
+except BaseException:
+    pass
 
 
-# group_3 = init_group(group_name_3, group_id_3)
-
-
-@bot.register(group_1, except_self=False)
-def reg_msg_for_group(msg):
-    save_message(msg, group_id_1)
-    auto_reply_assistant(msg)
+@bot.register(my_groups, except_self=False)
+def reg_msg_for_groups(msg):
+    # synchronize message in groups
+    group_name = msg.member.group.name
+    if group_name == group_name_1:
+        gp_name = '[DE-1]'
+        group_id = group_id_1
+    elif group_name == group_name_3:
+        gp_name = '[DE-2]'
+        group_id = group_id_3
+    else:
+        gp_name = ''
+    my_name = msg.member.name + gp_name + ':'
+    sync_message_in_groups(msg, my_groups, prefix=my_name)
+    # save into history
+    save_message(msg, group_id)
+    auto_reply_assistant(msg, msg.member.group)
 
 
 # @bot.register(group_3, except_self=False)

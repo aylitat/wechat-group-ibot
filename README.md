@@ -3,6 +3,7 @@
 ## Feature
 
 * Scheduled to check member's nickname in group, if it is invalid, send message to them.
+* synchronize messages in multiple chat groups.
 * Export chat history in group and save into database.
 * Analyse group members' branches,  developing languages and chat statistic as well
 * Generate statistic report
