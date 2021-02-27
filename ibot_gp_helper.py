@@ -120,11 +120,6 @@ def reg_msg_for_groups(msg):
     auto_reply_assistant(msg, msg.member.group)
 
 
-# @bot.register(group_3, except_self=False)
-# def reg_msg_for_group(msg):
-#    save_message(msg, group_id_3)
-
-
 def auto_reply_assistant(msg):
     # If is from group but not @ mentioned, ignore
     if not (isinstance(msg.sender, Group) and not msg.is_at):
